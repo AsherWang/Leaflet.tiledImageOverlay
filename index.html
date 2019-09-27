@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tile</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .indoor-map {
+            /* width: 400px;
+            height: 400px; */
+            height: 100%;
+            width: 100%;
+        }
+
+        #map-c {
+            height: 100%;
+            width: 100%;
+        }
+
+        .leaflet-indoor-default-tile-image {
+            background: black;
+        }
+    </style>
+    <link href="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.js"></script>
+    <script src="./src/L.tileImageOverlay.js"></script>
+</head>
+
+<body>
+    <div class='indoor-map'>
+        <div id='map-c'></div>
+    </div>
+    <script>
+
+        window.onload = function () {
+
+            var map = L.map('map-c', {
+                crs: L.CRS.Simple,
+                zoomSnap: 0, // important
+                zoomControl: false,
+                // zoomDelta: 0.1,
+            })
+                .setView([0, 0], 2);
+            const opts = {
+                tileUrl: 'https://mimi-003.oss-cn-hangzhou.aliyuncs.com/scenicPicture/scenic25/{z}/{x}_{y}.png',
+                z: 15, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
+                startX: 26691, // 横向
+                startY: 14215, // 竖向
+                row: 7,
+                col: 8,
+                blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
+                autoFit: true,
+                onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
+                    console.log('custom init here...');
+                    map.setView(center, z);
+                    map.setMaxBounds(maxBounds);
+                    map.setMinZoom(minZoom);
+                    map.setMaxZoom(maxZoom);
+                }
+                // debug: true,
+            };
+            L.tileImageOverlay(opts).addTo(map);
+        };
+    </script>
+</body>
+
+</html>

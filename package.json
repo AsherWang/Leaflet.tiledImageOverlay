@@ -1,0 +1,30 @@
+{
+  "name": "leaflet.tiled-image-overlay",
+  "version": "0.0.1",
+  "description": "show a tilelayer as an imageOverlay",
+  "main": "dist/L.tileImageOverlay.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsherWang/Leaflet.tiledImageOverlay.git"
+  },
+  "keywords": [
+    "leaflet",
+    "plugin",
+    "tiledImageOverlay"
+  ],
+  "author": "Asher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AsherWang/Leaflet.tiledImageOverlay/issues"
+  },
+  "homepage": "https://github.com/AsherWang/Leaflet.tiledImageOverlay#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "readable-stream": "^3.4.0",
+    "rimraf": "^3.0.0"
+  }
+}
