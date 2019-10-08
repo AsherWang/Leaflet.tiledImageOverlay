@@ -1,4 +1,6 @@
 ## Leaflet.tiledImageOverlay
+[![npm version](https://badge.fury.io/js/leaflet.tiled-image-overlay.svg)](https://www.npmjs.com/package/leaflet.tiled-image-overlay)
+![license](https://badgen.net/npm/license/leaflet.tiled-image-overlay)  
 Leaflet插件，实现单图的瓦片形式加载，缩放不切换层级  
 a Leaflet plugin providing a layer extended from L.LayerGroup.  
 it can be used to show a single zoom tileLayer, you can zoom in and out.
