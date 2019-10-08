@@ -33,7 +33,7 @@
     </style>
     <link href="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.js"></script>
-    <script src="./src/L.tileImageOverlay.js"></script>
+    <script src="../src/L.tileImageOverlay.js"></script>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
             })
                 .setView([0, 0], 2);
             const opts = {
-                tileUrl: 'https://mimi-003.oss-cn-hangzhou.aliyuncs.com/scenicPicture/scenic25/{z}/{x}_{y}.png',
+                tileUrl: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7&ltype=',
                 z: 15, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
                 startX: 26691, // 横向
                 startY: 14215, // 竖向
