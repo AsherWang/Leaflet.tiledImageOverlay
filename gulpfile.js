@@ -1,10 +1,17 @@
-const { series, src, dest } = require('gulp');
+const { series, src, dest, watch } = require('gulp');
 const rimraf = require('rimraf');
 const uglify = require('gulp-uglify');
 const pipeline = require('readable-stream').pipeline;
 
 function clean(cb) {
     rimraf('dist', cb);
+}
+
+function cpDist() {
+    return pipeline(
+        src('dist/L.tileImageOverlay.js'),
+        dest('docs')
+    );
 }
 
 function build() {
@@ -15,4 +22,9 @@ function build() {
     );
 }
 
-exports.default = series(clean, build);
+exports.build = series(clean, build, cpDist);
+
+
+exports.default = function () {
+    watch(['src/L.tileImageOverlay.js'], build);
+};
