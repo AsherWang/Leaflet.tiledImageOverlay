@@ -6,7 +6,7 @@ a Leaflet plugin providing a layer extended from L.LayerGroup.
 it can be used to show a single zoom tileLayer, you can zoom in and out.
 
 ## why this
-高分辨率图片__在移动端浏览器比如微信浏览器中有时候会显示不出来__，于是L.imageOverlay满足不了需要  
+高分辨率图片 __在移动端浏览器比如微信浏览器中有时候会显示不出来__ ，于是L.imageOverlay满足不了需要  
 a high resolution pic __will not show in some moblie phones__ from time to time using L.imageOverlay.
 
 ## demo
@@ -67,16 +67,16 @@ determine the range of y in tileUrl: [opts.startY, opts.startY+row]
 only required when the tileUrl contains `z`
 
 #### opts.blockSize
-单位是像素，每个瓦片实际上是一个L.imageOverlay，blockSize为其宽高
+单位是像素，每个瓦片实际上是一个L.imageOverlay，blockSize为其宽高  
 unit: px, the size of each tile as a L.imageOverlay
 
 #### opts.width, opts.height
-单位是像素，决定整个大图的宽高, 如果不传默认`width=blockSize*col`,`height=blockSize*row` 
+单位是像素，决定整个大图的宽高, 如果不传默认`width=blockSize*col`,`height=blockSize*row`  
 unit: px, the size of the big image, use `width=blockSize*col`,`height=blockSize*row` if omitted
 
 #### opts.autoFit, opts.onAutoFit
 `autoFit`为真则地图会自动缩放至最合适层级(根据当前窗口大小和大图大小)，并限制最大最小层级和最大边界， 若需自定义则传入`onAutoFit`，接收参数为推荐层级和边界(`{minZoom, z, maxZoom, center, maxBounds}`)  
-if `autoFit` is true, the map will auto fixbounds , set min and max zoom,  and set maxbounds. if u dont like it, then use `onAutoFit` to do your logic with your map, which accept recommended args like `{minZoom, z, maxZoom, center, maxBounds}`
+if `autoFit` is true, the map will auto fixbounds , set min and max zoom,  and set maxbounds. if u dont like it, use `onAutoFit` to do your logic with your map, which accept recommended args like `{minZoom, z, maxZoom, center, maxBounds}`
 
 #### opts.images
 一个包含所有(用到的)瓦片地址的数组  
@@ -87,4 +87,4 @@ if u dont like `tileUrl`, u can use `images, row, col`
 
 
 ### dev
-`gulp`
+just run `gulp`
