@@ -3,14 +3,22 @@ Leaflet插件，实现单图的瓦片形式加载，缩放不切换层级
 a Leaflet plugin providing a layer extended from L.LayerGroup.  
 it can be used to show a single zoom tileLayer, you can zoom in and out.
 
+## why this
+高分辨率图片__在移动端浏览器比如微信浏览器中有时候会显示不出来__，于是L.imageOverlay满足不了需要  
+a high resolution pic __will not show in some moblie phones__ from time to time using L.imageOverlay.
+
 ## demo
 [click me](https://asherwang.github.io/Leaflet.tiledImageOverlay)
 
-## why this
-高分辨率图片在移动端浏览器比如微信浏览器中有时候会显示不出来，于是L.imageOverlay满足不了需要  
-a high resolution pic in moblie phone will not show from time to time.
+## requirements
+- Leaflet 版本: 不小于1.0.0
+- Leaflet version: above 1.0.0
+- 无其他外部依赖
+- no other external dependencies
 
 ## usage
+在leafet脚本加载之后加载L.tiledImageOverlay即可  
+just import script L.tiledImageOverlay after leaflet  
 ``` javascript
 const map = L.map(...args);
 const opts = {

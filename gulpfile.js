@@ -4,7 +4,9 @@ const uglify = require('gulp-uglify');
 const pipeline = require('readable-stream').pipeline;
 
 function clean(cb) {
-    rimraf('dist', cb);
+    rimraf('docs/L.tileImageOverlay.js', function () {
+        rimraf('dist', cb);
+    });
 }
 
 function cpDist() {
@@ -26,5 +28,5 @@ exports.build = series(clean, build, cpDist);
 
 
 exports.default = function () {
-    watch(['src/L.tileImageOverlay.js'], build);
+    watch(['src/L.tileImageOverlay.js'], exports.build);
 };
