@@ -26,10 +26,6 @@
             height: 100%;
             width: 100%;
         }
-
-        .leaflet-indoor-default-tile-image {
-            background: black;
-        }
     </style>
     <link href="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.js"></script>
@@ -41,9 +37,7 @@
         <div id='map-c'></div>
     </div>
     <script>
-
         window.onload = function () {
-
             var map = L.map('map-c', {
                 crs: L.CRS.Simple,
                 zoomSnap: 0, // important
@@ -51,13 +45,15 @@
                 // zoomDelta: 0.1,
             })
                 .setView([0, 0], 2);
-            const opts = {
+
+            // opts using tileUrl
+            const opts1 = {
                 tileUrl: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7&ltype=',
                 z: 15, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
                 startX: 26691, // 横向
                 startY: 14215, // 竖向
-                row: 7,
-                col: 8,
+                row: 3,
+                col: 3,
                 blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
                 autoFit: true,
                 onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
@@ -66,10 +62,36 @@
                     map.setMaxBounds(maxBounds);
                     map.setMinZoom(minZoom);
                     map.setMaxZoom(maxZoom);
-                }
+                },
                 // debug: true,
             };
-            L.tileImageOverlay(opts).addTo(map);
+
+            // opts using images
+            const opts2 = {
+                images: [
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
+                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype="],
+                row: 3,
+                col: 3,
+                blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
+                autoFit: true,
+                onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
+                    console.log('custom init here...');
+                    map.setView(center, z);
+                    map.setMaxBounds(maxBounds);
+                    map.setMinZoom(minZoom);
+                    map.setMaxZoom(maxZoom);
+                },
+                // debug: true,
+            };
+            L.tileImageOverlay(opts2).addTo(map);
         };
     </script>
 </body>
