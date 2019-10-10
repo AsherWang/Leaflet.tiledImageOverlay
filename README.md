@@ -9,6 +9,18 @@ it can be used to show a single zoom tileLayer, you can zoom in and out.
 高分辨率图片 __在移动端浏览器比如微信浏览器中有时候会显示不出来__ ，于是L.imageOverlay满足不了需要  
 a high resolution pic __will not show in some moblie phones__ from time to time using L.imageOverlay.
 
+
+<!-- [Remove][]    -->
+[Google] [1]
+
+<!-- [Remove]: <span style='background: red;color:white;border-radius:5px;'>Remove</span> Remove   -->
+[1]: http://google.com/        "Google"
+I get 10 times more traffic from [Google][] than from
+[Yahoo][] or [MSN][].
+
+[google]: http://google.com/        "Google"
+[yahoo]:  http://search.yahoo.com/  "Yahoo Search"
+[msn]:    http://search.msn.com/    "MSN Search"
 ## demo
 [click me](https://asherwang.github.io/Leaflet.tiledImageOverlay)
 
@@ -21,6 +33,8 @@ a high resolution pic __will not show in some moblie phones__ from time to time 
 ## usage
 在leafet脚本加载之后加载L.tiledImageOverlay即可  
 just import script L.tiledImageOverlay after leaflet  
+
+use with `opts.tileUrl`
 ``` javascript
 const map = L.map(...args);
 const opts = {
@@ -44,6 +58,7 @@ const opts = {
 L.tileImageOverlay(opts).addTo(map);
 ```
 
+u can also use with use with `opts.images` or `opts.image`, check files `docs/demo-images.html` and `docs/demo-image.html`
 
 ### example
 see `docs/index.html`
@@ -85,6 +100,13 @@ e.g. [row1col1,row1col2,...,row2col1,...]
 如果你不喜欢`tileUrl`，可以使用`images，row，col`组合来决定所有的瓦片来源  
 if u dont like `tileUrl`, u can use `images, row, col`  
 
+#### opts.image (type: Image)
+只要一张图
+just one single image
+如果你也不喜欢`images`,可以使用`image，blockSize`组合，将自动将大图切片，然后使用canvas呈现出来  
+注意需要额外引入`L.canvasOverlay.min.js`, 而且你需要在image加载完成之后传入，见`docs/demo-image.html`   
+if u dont like `images` either, u can use `image, blockSize`, the image will be cut into pieces according to `blockSize` and show in canvas  
+attention: u should import `L.canvasOverlay.min.js` before using `opt.image`, and u need to call `L.tiledImageOverlay` after your image is loaded, see `docs/demo-image.html` for details
 
 ### dev
 just run `gulp`

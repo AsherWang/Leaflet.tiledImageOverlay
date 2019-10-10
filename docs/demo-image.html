@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tile</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .indoor-map {
+            /* width: 400px;
+            height: 400px; */
+            height: 100%;
+            width: 100%;
+        }
+
+        #map-c {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <link href="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.js"></script>
+    <script src="./L.canvasOverlay.min.js"></script>
+    <script src="./L.tileImageOverlay.min.js"></script>
+</head>
+
+<body>
+    <div class='indoor-map'>
+        <div id='map-c'></div>
+    </div>
+    <script>
+        window.onload = function () {
+            var map = L.map('map-c', {
+                crs: L.CRS.Simple,
+                zoomSnap: 0, // important
+                zoomControl: false,
+                // zoomDelta: 0.1,
+            })
+                .setView([0, 0], 2);
+
+            var imageurl = './testImg.png';
+            var img = new Image();   // 创建img元素
+            // opts using a single image
+            const opts = {
+                image: img,
+                blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
+                autoFit: true,
+                onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
+                    console.log('custom init here...');
+                    map.setView(center, z);
+                    map.setMaxBounds(maxBounds);
+                    map.setMinZoom(minZoom);
+                    map.setMaxZoom(maxZoom);
+                },
+                // debug: true,
+            };
+            img.onload = function () {
+                L.tileImageOverlay(opts).addTo(map);
+            }
+            img.src = imageurl; // 设置图片源地址
+        };
+    </script>
+</body>
+
+</html>

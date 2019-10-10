@@ -1,10 +1,10 @@
 {
   "name": "leaflet.tiled-image-overlay",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "show a tilelayer as an imageOverlay",
-  "main": "dist/L.tileImageOverlay.js",
+  "main": "dist/L.tileImageOverlay.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,14 @@
   },
   "homepage": "https://github.com/AsherWang/Leaflet.tiledImageOverlay#readme",
   "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "gulp": "^4.0.2",
-    "gulp-uglify": "^3.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify-es": "^1.0.4",
     "readable-stream": "^3.4.0",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.0",
+    "uglify-es": "^3.3.9"
   }
 }

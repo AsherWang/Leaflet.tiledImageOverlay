@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tile</title>
+    <title>tileImageOverlay</title>
     <style>
         html,
         body {
@@ -29,71 +29,18 @@
     </style>
     <link href="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/leaflet/1.5.1/leaflet.js"></script>
-    <script src="./L.tileImageOverlay.js"></script>
+    <script src="./L.canvasOverlay.min.js"></script>
+    <script src="./L.tileImageOverlay.min.js"></script>
 </head>
 
 <body>
-    <div class='indoor-map'>
-        <div id='map-c'></div>
-    </div>
-    <script>
-        window.onload = function () {
-            var map = L.map('map-c', {
-                crs: L.CRS.Simple,
-                zoomSnap: 0, // important
-                zoomControl: false,
-                // zoomDelta: 0.1,
-            })
-                .setView([0, 0], 2);
-
-            // opts using tileUrl
-            const opts1 = {
-                tileUrl: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7&ltype=',
-                z: 15, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
-                startX: 26691, // 横向
-                startY: 14215, // 竖向
-                row: 3,
-                col: 3,
-                blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
-                autoFit: true,
-                onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
-                    console.log('custom init here...');
-                    map.setView(center, z);
-                    map.setMaxBounds(maxBounds);
-                    map.setMinZoom(minZoom);
-                    map.setMaxZoom(maxZoom);
-                },
-                // debug: true,
-            };
-
-            // opts using images
-            const opts2 = {
-                images: [
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14215&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14216&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26691&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26692&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype=",
-                    "https://wprd01.is.autonavi.com/appmaptile?x=26693&y=14217&z=15&lang=zh_cn&size=1&scl=1&style=7&ltype="],
-                row: 3,
-                col: 3,
-                blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
-                autoFit: true,
-                onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
-                    console.log('custom init here...');
-                    map.setView(center, z);
-                    map.setMaxBounds(maxBounds);
-                    map.setMinZoom(minZoom);
-                    map.setMaxZoom(maxZoom);
-                },
-                // debug: true,
-            };
-            L.tileImageOverlay(opts2).addTo(map);
-        };
-    </script>
+    <h4>tileImageOverlay</h4>
+    <ul>
+        <li><a href="./demo-tileurl.html">demo with tileurl</a></li>
+        <li><a href="./demo-images.html">demo with images</a></li>
+        <li><a href="./demo-image.html">demo with one single image</a></li>
+    </ul>
+    
 </body>
 
 </html>
