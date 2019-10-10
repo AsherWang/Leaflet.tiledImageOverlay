@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tile</title>
+    <title>L.tileImageOverlay</title>
     <style>
         html,
         body {
@@ -54,6 +54,8 @@
                 startY: 2723, // 竖向
                 row: 4,
                 col: 4,
+                leftTop: [0, 0], // latlng
+                // rightBottom: [-10, 10], // latlng, required when map crs is not L.CRS.Simple
                 blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
                 autoFit: true,
                 onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {

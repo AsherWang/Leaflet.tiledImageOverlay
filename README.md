@@ -22,16 +22,18 @@ a high resolution pic __will not show in some moblie phones__ from time to time 
 在leafet脚本加载之后加载L.tiledImageOverlay即可  
 just import script L.tiledImageOverlay after leaflet  
 
-use with `opts.tileUrl`
+use with `options.tileUrl`
 ``` javascript
 const map = L.map(...args);
-const opts = {
-    tileUrl: 'https://wprd01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7&ltype=',
-    z: 15, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
-    startX: 26691, // 横向
-    startY: 14215, // 竖向
-    row: 7,
-    col: 8,
+const options = {
+    tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    z: 13, // 某一层级， 可以考虑不传，那么tileUrl中也不要留z的位置
+    startX: 4091, // 横向
+    startY: 2723, // 竖向
+    row: 4,
+    col: 4,
+    leftTop: [0, 0], // latlng
+    // rightBottom: [-10, 10], // latlng, required when map crs is not L.CRS.Simple
     blockSize: 64, // 单个瓦片显示在手机屏幕上的尺寸，与实际瓦片大小无关
     autoFit: true,
     onAutoFit: function ({ minZoom, z, maxZoom, center, maxBounds }) {
@@ -40,55 +42,63 @@ const opts = {
         map.setMaxBounds(maxBounds);
         map.setMinZoom(minZoom);
         map.setMaxZoom(maxZoom);
-    }
+    },
     // debug: true,
 };
-L.tileImageOverlay(opts).addTo(map);
+L.tileImageOverlay(options).addTo(map);
 ```
 
-u can also use with use with `opts.images` or `opts.image`, check files `docs/demo-images.html` and `docs/demo-image.html`
+u can also use with use with `options.images` or `options.image`, check files `docs/demo-images.html` and `docs/demo-image.html`
 
 ### example
 see `docs/index.html`
 
 ### options
 
-#### opts.tileUrl
+#### options.tileUrl
 一个url模板字符串，用来结合x,y,z为每个瓦片拼出一个完整的图片地址, 和参数`startX`, `startY`, `col`, `row`, `z`配合使用  
 a url pattern to build an image url for per tile, working with`startX`, `startY`, `col`, `row`, `z`  
 
-#### opts.startX, opts.col
-决定tileUrl中x的取值: [opts.startX, opts.startX+col]  
-determine the range of x in tileUrl: [opts.startX, opts.startX+col]  
+#### options.startX, options.col
+决定tileUrl中x的取值: [options.startX, options.startX+options.col]  
+determine the range of x in tileUrl: [options.startX, options.startX+options.col]  
 
-#### opts.startY, opts.row
-决定tileUrl中y的取值: [opts.startY, opts.startY+row]  
-determine the range of y in tileUrl: [opts.startY, opts.startY+row]  
+#### options.startY, options.row
+决定tileUrl中y的取值: [options.startY, options.startY+options.row]  
+determine the range of y in tileUrl: [options.startY, options.startY+options.row]  
 
-#### opts.z
-可选，如果tileUrl中有`z`，则需要传入此参数
+#### options.z
+可选，如果tileUrl中有`z`，则需要传入此参数  
 only required when the tileUrl contains `z`
 
-#### opts.blockSize
+#### options.blockSize
 单位是像素，每个瓦片实际上是一个L.imageOverlay，blockSize为其宽高  
 unit: px, the size of each tile as a L.imageOverlay
 
-#### opts.width, opts.height
+#### options.width, options.height
 单位是像素，决定整个大图的宽高, 如果不传默认`width=blockSize*col`,`height=blockSize*row`  
 unit: px, the size of the big image, use `width=blockSize*col`,`height=blockSize*row` if omitted
 
-#### opts.autoFit, opts.onAutoFit
+#### options.leftTop
+左上角坐标，默认[0,0]  
+leftTop corner latlng, default is [0, 0]
+
+#### options.rightBottom
+右下角坐标。 地图的crs 不是 L.CRS.Simple的时候需要设定，如果不设定将会使用`options.leftTop`和`options.width, options.height`算出`options.rightBottom`  
+rightBottom corner latlng, required when map crs is not L.CRS.Simple, will be calculated with `options.leftTop` and `options.width, options.height` if omitted
+
+#### options.autoFit, options.onAutoFit
 `autoFit`为真则地图会自动缩放至最合适层级(根据当前窗口大小和大图大小)，并限制最大最小层级和最大边界， 若需自定义则传入`onAutoFit`，接收参数为推荐层级和边界(`{minZoom, z, maxZoom, center, maxBounds}`)  
 if `autoFit` is true, the map will auto fixbounds , set min and max zoom,  and set maxbounds. if u dont like it, use `onAutoFit` to do your logic with your map, which accept recommended args like `{minZoom, z, maxZoom, center, maxBounds}`
 
-#### opts.images
+#### options.images
 一个包含所有(用到的)瓦片地址的数组  
 an array of url string  
 e.g. [row1col1,row1col2,...,row2col1,...]  
 如果你不喜欢`tileUrl`，可以使用`images，row，col`组合来决定所有的瓦片来源  
 if u dont like `tileUrl`, u can use `images, row, col`  
 
-#### opts.image (type: Image)
+#### options.image (type: Image)
 只要一张图
 just one single image
 如果你也不喜欢`images`,可以使用`image，blockSize`组合，将自动将大图切片，然后使用canvas呈现出来  
