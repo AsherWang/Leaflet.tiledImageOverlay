@@ -9,18 +9,6 @@ it can be used to show a single zoom tileLayer, you can zoom in and out.
 高分辨率图片 __在移动端浏览器比如微信浏览器中有时候会显示不出来__ ，于是L.imageOverlay满足不了需要  
 a high resolution pic __will not show in some moblie phones__ from time to time using L.imageOverlay.
 
-
-<!-- [Remove][]    -->
-[Google] [1]
-
-<!-- [Remove]: <span style='background: red;color:white;border-radius:5px;'>Remove</span> Remove   -->
-[1]: http://google.com/        "Google"
-I get 10 times more traffic from [Google][] than from
-[Yahoo][] or [MSN][].
-
-[google]: http://google.com/        "Google"
-[yahoo]:  http://search.yahoo.com/  "Yahoo Search"
-[msn]:    http://search.msn.com/    "MSN Search"
 ## demo
 [click me](https://asherwang.github.io/Leaflet.tiledImageOverlay)
 
