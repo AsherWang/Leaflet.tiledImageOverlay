@@ -109,8 +109,14 @@
             images.push(L.canvasOverlay(
               imageBounds,
               {
-                drawFn(ctx, width, height) {
-                  ctx.drawImage(opts.image, sx, sy, blockSize, blockSize, 0, 0, width, height);
+                drawFn(ctx, canvas) {
+                  const rate = 1.2;
+                  // eslint-disable-next-line no-param-reassign
+                  canvas.width = blockSize * rate;
+                  // eslint-disable-next-line no-param-reassign
+                  canvas.height = blockSize * rate;
+                  ctx.drawImage(opts.image, sx, sy, blockSize, blockSize,
+                    0, 0, canvas.width, canvas.height);
                 },
               },
             ));
@@ -138,17 +144,34 @@
     // 居中并自动缩放到最适层级
     _autoFit() {
       const map = this._map;
+      const mapSize = map.getSize();
+      const mapWHRate = mapSize.x / mapSize.y; // 地图宽高比
+      const imgHeight = Math.abs(this._bounds[0][0] - this._bounds[1][0]);
+      const imgWidth = Math.abs(this._bounds[0][1] - this._bounds[1][1]);
+      const imgWHRate = imgWidth / imgHeight;
       const center = this._center;
       const r = Math.min(
         Math.abs(this._bounds[0][0] - this._bounds[1][0]),
         Math.abs(this._bounds[0][1] - this._bounds[1][1]),
       ) / 2;
-      const targetBounds = [
-        [center[0] + r, center[1] - r],
-        [center[0] - r, center[1] + r],
-      ];
-      const z = map.getBoundsZoom(targetBounds, true);
-      const minZoom = map.getBoundsZoom(this._bounds, false);
+      let targetBounds;
+      const imgWHRateSmaller = imgWHRate < mapWHRate;
+      if (imgWHRateSmaller) {
+        const ratedHeight = imgWidth / mapWHRate;
+        targetBounds = [
+          [center[0] + ratedHeight / 2, center[1] - imgWidth / 2],
+          [center[0] - ratedHeight / 2, center[1] + imgWidth / 2],
+        ];
+      } else {
+        const ratedWidth = imgHeight * mapWHRate;
+        targetBounds = [
+          [center[0] + imgHeight / 2, center[1] - ratedWidth / 2],
+          [center[0] - imgHeight / 2, center[1] + ratedWidth / 2],
+        ];
+      }
+      const z = map.getBoundsZoom(targetBounds, imgWHRateSmaller);
+      // const minZoom = map.getBoundsZoom(this._bounds, false);
+      const minZoom = z;
       const maxZoom = Math.max(z, minZoom + 3);
       if (this.options.onAutoFit) {
         const recommendCfg = {

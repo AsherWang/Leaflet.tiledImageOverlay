@@ -23,17 +23,18 @@
     options: {
       drawFn: Util.falseFn,
     },
-    _onZoomEnd(canvasCxt) {
-      const vid = this.getElement();
-      this._canvas.width = vid.clientWidth;
-      this._canvas.height = vid.clientHeight;
-      this.options.drawFn.call(this, canvasCxt, vid.clientWidth, vid.clientHeight);
+    _onZoomEnd(canvasCxt, canvas) {
+      // const vid = this.getElement();
+      // this.options.drawFn.call(this, canvasCxt, canvas, vid.clientWidth, vid.clientHeight);
+      this.options.drawFn.call(this, canvasCxt, canvas);
     },
     _initImage() {
       const wasElementSupplied = this._url.tagName === 'div';
       this._image = wasElementSupplied ? this._url : DomUtil.create('div');
       const vid = this._image;
       const canvas = DomUtil.create('canvas');
+      canvas.style.height = '100%';
+      canvas.style.width = '100%';
       vid.appendChild(canvas);
       DomUtil.addClass(vid, 'leaflet-image-layer');
       if (this._zoomAnimated) { DomUtil.addClass(vid, 'leaflet-zoom-animated'); }
@@ -41,16 +42,17 @@
       const canvasCxt = canvas.getContext('2d');
       this._canvas = canvas;
       // this.options.drawFn.call(this, canvasCxt);
-      const zoomendHandler = this._onZoomEnd.bind(this, canvasCxt);
-      this.on('add', (evt) => {
-        const map = evt.target._map;
-        map.on('zoomend', zoomendHandler);
-        zoomendHandler();
-      });
-      this.on('remove', (evt) => {
-        const map = evt.target._map;
-        map.off('zoomend', zoomendHandler);
-      });
+      const zoomendHandler = this._onZoomEnd.bind(this, canvasCxt, canvas);
+      zoomendHandler();
+      // this.on('add', (evt) => {
+      //   const map = evt.target._map;
+      //   // map.on('zoomend', zoomendHandler);
+      //   zoomendHandler();
+      // });
+      // this.on('remove', (evt) => {
+      //   const map = evt.target._map;
+      //   // map.off('zoomend', zoomendHandler);
+      // });
     },
   });
 
