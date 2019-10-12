@@ -150,10 +150,10 @@
       const imgWidth = Math.abs(this._bounds[0][1] - this._bounds[1][1]);
       const imgWHRate = imgWidth / imgHeight;
       const center = this._center;
-      const r = Math.min(
-        Math.abs(this._bounds[0][0] - this._bounds[1][0]),
-        Math.abs(this._bounds[0][1] - this._bounds[1][1]),
-      ) / 2;
+      // const r = Math.min(
+      //   Math.abs(this._bounds[0][0] - this._bounds[1][0]),
+      //   Math.abs(this._bounds[0][1] - this._bounds[1][1]),
+      // ) / 2;
       let targetBounds;
       const imgWHRateSmaller = imgWHRate < mapWHRate;
       if (imgWHRateSmaller) {
